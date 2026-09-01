@@ -1,0 +1,5 @@
+{
+  "/products/:sku/stock": "/products/:sku",
+  "/orders/:id/eligibility": "/eligibility/:id",
+  "/shipments/:id/tracking": "/shipments/:id"
+}

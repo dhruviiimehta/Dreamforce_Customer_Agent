@@ -1,0 +1,13 @@
+{
+  "name": "customer-agent-api",
+  "version": "1.0.0",
+  "description": "Mock backend for a customer-support agent: orders, shipments, returns/RMA, catalog/inventory.",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "mock": "json-server db.json --routes routes.json --port 3000"
+  },
+  "dependencies": {
+    "json-server": "0.17.4"
+  }
+}
