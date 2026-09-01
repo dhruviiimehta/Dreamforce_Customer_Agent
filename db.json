@@ -1,8 +1,26 @@
 {
   "customers": [
-    { "id": 1, "name": "Ava Thompson", "email": "ava@example.com", "tier": "gold", "address": "San Francisco, CA" },
-    { "id": 2, "name": "Marcus Reed", "email": "marcus@example.com", "tier": "silver", "address": "Seattle, WA" },
-    { "id": 3, "name": "Priya Nair", "email": "priya@example.com", "tier": "bronze", "address": "Austin, TX" }
+    {
+      "id": 1,
+      "name": "Ava Thompson",
+      "email": "ava@example.com",
+      "tier": "gold",
+      "address": "742 Evergreen Terrace, San Francisco, CA"
+    },
+    {
+      "id": 2,
+      "name": "Marcus Reed",
+      "email": "marcus@example.com",
+      "tier": "silver",
+      "address": "88 Pine Street, Seattle, WA"
+    },
+    {
+      "id": 3,
+      "name": "Priya Nair",
+      "email": "priya@example.com",
+      "tier": "bronze",
+      "address": "1200 Congress Ave, Austin, TX"
+    }
   ],
 
   "orders": [
@@ -14,42 +32,85 @@
         { "sku": "phone", "name": "Aurora Phone", "qty": 1, "price": 799 },
         { "sku": "case", "name": "Clear Case", "qty": 1, "price": 29 }
       ],
-      "total": 828
+      "total": 828,
+      "placedAt": "2026-07-10",
+      "shipmentId": 501
     },
     {
       "id": 102,
       "customerId": 1,
       "status": "shipped",
       "items": [{ "sku": "headphones", "name": "NoiseCancel Headphones", "qty": 1, "price": 349 }],
-      "total": 349
+      "total": 349,
+      "placedAt": "2026-08-24",
+      "shipmentId": 502
     },
     {
       "id": 103,
       "customerId": 2,
       "status": "processing",
       "items": [{ "sku": "watch", "name": "Aurora Watch", "qty": 1, "price": 429 }],
-      "total": 429
+      "total": 429,
+      "placedAt": "2026-08-29",
+      "shipmentId": null
     },
     {
       "id": 104,
       "customerId": 3,
       "status": "cancelled",
       "items": [{ "sku": "tablet", "name": "Aurora Tablet", "qty": 1, "price": 599 }],
-      "total": 599
+      "total": 599,
+      "placedAt": "2026-08-15",
+      "shipmentId": null
     },
     {
       "id": 105,
       "customerId": 2,
       "status": "delivered",
       "items": [{ "sku": "charger", "name": "65W Charger", "qty": 2, "price": 39 }],
-      "total": 78
+      "total": 78,
+      "placedAt": "2026-06-30",
+      "shipmentId": 505
     }
   ],
 
   "shipments": [
-    { "id": 501, "orderId": 101, "tracking": "UPS #1Z999AA10123456784", "status": "delivered", "eta": "2026-07-14" },
-    { "id": 502, "orderId": 102, "tracking": "FedEx #771234567890", "status": "in_transit", "eta": "2026-09-02" },
-    { "id": 505, "orderId": 105, "tracking": "USPS #9400100000000000000000", "status": "delivered", "eta": "2026-07-05" }
+    {
+      "id": 501,
+      "orderId": 101,
+      "carrier": "UPS",
+      "trackingNo": "1Z999AA10123456784",
+      "status": "delivered",
+      "eta": "2026-07-14",
+      "tracking": [
+        { "date": "2026-07-11", "location": "San Jose, CA", "status": "picked_up" },
+        { "date": "2026-07-13", "location": "San Francisco, CA", "status": "delivered" }
+      ]
+    },
+    {
+      "id": 502,
+      "orderId": 102,
+      "carrier": "FedEx",
+      "trackingNo": "771234567890",
+      "status": "in_transit",
+      "eta": "2026-09-02",
+      "tracking": [
+        { "date": "2026-08-25", "location": "Memphis, TN", "status": "picked_up" },
+        { "date": "2026-08-30", "location": "Oakland, CA", "status": "in_transit" }
+      ]
+    },
+    {
+      "id": 505,
+      "orderId": 105,
+      "carrier": "USPS",
+      "trackingNo": "9400100000000000000000",
+      "status": "delivered",
+      "eta": "2026-07-05",
+      "tracking": [
+        { "date": "2026-07-01", "location": "Seattle, WA", "status": "picked_up" },
+        { "date": "2026-07-04", "location": "Seattle, WA", "status": "delivered" }
+      ]
+    }
   ],
 
   "returns": [
@@ -58,27 +119,55 @@
   ],
 
   "eligibility": [
-    { "id": 101, "orderId": 101, "returnable": true, "windowDays": 30, "returnBy": "2026-08-12" },
-    { "id": 102, "orderId": 102, "returnable": false, "windowDays": 30, "reason": "not_delivered" },
-    { "id": 105, "orderId": 105, "returnable": false, "windowDays": 30, "reason": "window_expired" }
+    { "id": 101, "orderId": 101, "returnable": true, "windowDays": 30, "returnBy": "2026-08-12", "reason": null },
+    { "id": 102, "orderId": 102, "returnable": false, "windowDays": 30, "returnBy": null, "reason": "not_delivered" },
+    { "id": 105, "orderId": 105, "returnable": false, "windowDays": 30, "returnBy": null, "reason": "window_expired" }
   ],
 
   "products": [
     {
-      "id": "phone", "sku": "phone", "name": "Aurora Phone", "price": 799,
-      "stockByStore": [{ "store": "SF", "qty": 12 }, { "store": "Seattle", "qty": 3 }, { "store": "Austin", "qty": 0 }]
+      "id": "phone",
+      "sku": "phone",
+      "name": "Aurora Phone",
+      "price": 799,
+      "stockByStore": [
+        { "store": "San Francisco", "qty": 12 },
+        { "store": "Seattle", "qty": 3 },
+        { "store": "Austin", "qty": 0 }
+      ]
     },
     {
-      "id": "headphones", "sku": "headphones", "name": "NoiseCancel Headphones", "price": 349,
-      "stockByStore": [{ "store": "SF", "qty": 24 }, { "store": "Seattle", "qty": 18 }, { "store": "Austin", "qty": 7 }]
+      "id": "headphones",
+      "sku": "headphones",
+      "name": "NoiseCancel Headphones",
+      "price": 349,
+      "stockByStore": [
+        { "store": "San Francisco", "qty": 24 },
+        { "store": "Seattle", "qty": 18 },
+        { "store": "Austin", "qty": 7 }
+      ]
     },
     {
-      "id": "watch", "sku": "watch", "name": "Aurora Watch", "price": 429,
-      "stockByStore": [{ "store": "SF", "qty": 5 }, { "store": "Seattle", "qty": 0 }, { "store": "Austin", "qty": 9 }]
+      "id": "watch",
+      "sku": "watch",
+      "name": "Aurora Watch",
+      "price": 429,
+      "stockByStore": [
+        { "store": "San Francisco", "qty": 5 },
+        { "store": "Seattle", "qty": 0 },
+        { "store": "Austin", "qty": 9 }
+      ]
     },
     {
-      "id": "charger", "sku": "charger", "name": "65W Charger", "price": 39,
-      "stockByStore": [{ "store": "SF", "qty": 50 }, { "store": "Seattle", "qty": 42 }, { "store": "Austin", "qty": 33 }]
+      "id": "charger",
+      "sku": "charger",
+      "name": "65W Charger",
+      "price": 39,
+      "stockByStore": [
+        { "store": "San Francisco", "qty": 50 },
+        { "store": "Seattle", "qty": 42 },
+        { "store": "Austin", "qty": 33 }
+      ]
     }
   ]
 }
